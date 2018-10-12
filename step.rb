@@ -31,7 +31,6 @@ pull_id = ENV["PULL_REQUEST_ID"]
 authorization_token = ENV["auth_token"]
 
 client = Octokit::Client.new access_token:authorization_token
-pr = client.pull_request repo, pull_id
 
 new_branch = "feat/reportRelease"
 client.create_ref repo, "heads/#{new_branch}", sha
