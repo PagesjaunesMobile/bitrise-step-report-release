@@ -34,4 +34,8 @@ client = Octokit::Client.new access_token:authorization_token
 
 new_branch = "feat/reportRelease"
 client.create_ref repo, "heads/#{new_branch}", sha
-client.create_pull_request repo, "develop", new_branch, "chore(changes): report changes", "code review OK"
+report = client.create_pull_request repo, "develop", new_branch, "chore(changes): report changes", "#{changelog}"
+
+log_info "report: #{report["number"]}"
+log_info(client.add_comment(repo, report["number"], "code review OK").inspect)
+log_info(client.issue_comments(repo, report["number"]).inspect) 
