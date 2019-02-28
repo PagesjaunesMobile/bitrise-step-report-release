@@ -32,6 +32,6 @@ authorization_token = ENV["auth_token"]
 
 client = Octokit::Client.new access_token:authorization_token
 
-new_branch = "feat/reportRelease"
-client.create_ref repo, "heads/#{new_branch}", sha
+new_branch = ENV["DEST_BRANCH"]
+#client.create_ref repo, "heads/#{new_branch}", sha
 report = client.create_pull_request repo, "develop", new_branch, "chore(changes): report changes", "code review OK"

@@ -10,9 +10,18 @@ if [ -z "$auth_token" ]; then
 	exit 1
 fi
 
+export DEST_BRANCH="feat/reportRelease"
+git fetch origin develop
+git branch $DEST_BRANCH
+git checkout $DEST_BRANCH
+git rebase -p origin/develop
+git push origin $DEST_BRANCH
+
 msg_info "Installing Octokit"
 cd $THIS_SCRIPT_DIR && bundle install
 
 msg_info "Executing script"
+
+
 bundle exec ruby "$THIS_SCRIPT_DIR/step.rb"
 exit $?
