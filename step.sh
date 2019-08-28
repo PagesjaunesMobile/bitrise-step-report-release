@@ -15,13 +15,11 @@ git fetch origin develop
 git branch $DEST_BRANCH
 git checkout $DEST_BRANCH
 git rebase -p origin/develop
-git push origin $DEST_BRANCH
-
-msg_info "Installing Octokit"
-cd $THIS_SCRIPT_DIR && bundle install
-
-msg_info "Executing script"
-
-
-bundle exec ruby "$THIS_SCRIPT_DIR/step.rb"
+if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/develop)" ]; then
+  git push origin $DEST_BRANCH
+  msg_info "Installing Octokit"
+  cd $THIS_SCRIPT_DIR && bundle install
+  msg_info "Executing script"
+  bundle exec ruby "$THIS_SCRIPT_DIR/step.rb"
+fi
 exit $?
