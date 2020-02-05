@@ -18,8 +18,8 @@ git rebase -p origin/develop
 if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/develop)" ]; then
   git push origin $DEST_BRANCH
   msg_info "Installing Octokit"
-  cd $THIS_SCRIPT_DIR && bundle install
+  cd $THIS_SCRIPT_DIR && gem install octokit
   msg_info "Executing script"
-  bundle exec ruby "$THIS_SCRIPT_DIR/step.rb"
+  ruby "$THIS_SCRIPT_DIR/step.rb"
 fi
 exit $?
