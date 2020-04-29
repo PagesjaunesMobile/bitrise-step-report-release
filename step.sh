@@ -16,9 +16,10 @@ git branch $DEST_BRANCH
 git checkout $DEST_BRANCH
 git rebase -p origin/develop
 if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/develop)" ]; then
+  set +e && git branch -D $DEST_BRANCH && set -e
   git push origin $DEST_BRANCH
   msg_info "Installing Octokit"
-  cd $THIS_SCRIPT_DIR && gem install octokit
+  cd $THIS_SCRIPT_DIR && gem install gitlab
   msg_info "Executing script"
   ruby "$THIS_SCRIPT_DIR/step.rb"
 fi
