@@ -35,4 +35,8 @@ client = Gitlab.client(
 
 new_branch = ENV["DEST_BRANCH"]
 #client.create_ref repo, "heads/#{new_branch}", sha
-report = client.create_merge_request repo, "chore(fix): report fixes", {target_branch: "develop", source_branch: new_branch}
+#report = client.create_merge_request repo, "chore(fix): report fixes", {target_branch: "develop", source_branch: new_branch}
+    new_branch = "feat/reportRelease"
+    client.create_ref repo, "heads/#{new_branch}", sha
+    client.create_pull_request repo, "develop", new_branch, "chore(fix): report fixes", "code review OK"
+
